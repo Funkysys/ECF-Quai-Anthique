@@ -23,56 +23,29 @@ class Hours
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    #[Groups(['hours:list', 'hours:item'])]
-    private ?string $day = null;
-
     #[ORM\Column]
-    #[Groups(['hours:list', 'hours:item'])]
-    private ?int $open_hour = null;
+    private ?int $hour = null;
 
-    #[ORM\Column]
-    #[Groups(['hours:list', 'hours:item'])]
-    private ?int $close_hour = null;
+    public function __toString()
+    {
+        return $this->hour;
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getDay(): ?string
+    public function getHour(): ?int
     {
-        return $this->day;
+        return $this->hour;
     }
 
-    public function setDay(string $day): self
+    public function setHour(int $hour): self
     {
-        $this->day = $day;
+        $this->hour = $hour;
 
         return $this;
     }
 
-    public function getOpenHour(): ?int
-    {
-        return $this->open_hour;
-    }
-
-    public function setOpenHour(int $open_hour): self
-    {
-        $this->open_hour = $open_hour;
-
-        return $this;
-    }
-
-    public function getCloseHour(): ?int
-    {
-        return $this->close_hour;
-    }
-
-    public function setCloseHour(int $close_hour): self
-    {
-        $this->close_hour = $close_hour;
-
-        return $this;
-    }
 }
