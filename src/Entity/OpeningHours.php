@@ -15,7 +15,7 @@ class OpeningHours
 
     #[ORM\ManyToOne(inversedBy: 'openingHours')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?days $day = null;
+    private ?Days $day = null;
 
     #[ORM\ManyToOne]
     private ?Hours $openingHours = null;
@@ -34,6 +34,9 @@ class OpeningHours
 
     #[ORM\Column]
     private ?bool $lunch = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $diner = null;
 
     public function getId(): ?int
     {
@@ -120,6 +123,18 @@ class OpeningHours
     public function setLunch(bool $lunch): self
     {
         $this->lunch = $lunch;
+
+        return $this;
+    }
+
+    public function isDiner(): ?bool
+    {
+        return $this->diner;
+    }
+
+    public function setDiner(?bool $diner): self
+    {
+        $this->diner = $diner;
 
         return $this;
     }

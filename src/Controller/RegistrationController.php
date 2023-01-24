@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class RegistrationController extends AbstractController
+class RegistrationController extends AbstractControllerh
 {
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, AuthenticatorControllerAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
@@ -25,6 +25,11 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
+            if($user->getEmail() === "adminquaiantique@quaiant.fr"){
+                $user->setRoles(["ROLE_ADMIN"]);
+            } else {
+                $user->setRoles(["ROLE_USER"]);
+            }
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
