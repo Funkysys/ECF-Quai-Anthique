@@ -17,7 +17,7 @@
 		}
 	</style>
 
-	<div class="example-wrapper">
+	<div class="example-wrapper bg-primary">
 		<ul>
 			{% if is_granted('ROLE_ADMIN') %}
 				<button>
@@ -31,6 +31,9 @@
 			{% else %}
 				<button>
 					<a href={{ path('app_login')}}>Login</a>
+				</button>
+				<button>
+					<a href={{ path('app_register')}}>Register</a>
 				</button>
 			{% endif %}
 		</ul>

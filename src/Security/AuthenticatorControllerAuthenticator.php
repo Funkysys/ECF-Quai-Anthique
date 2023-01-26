@@ -48,7 +48,11 @@ class AuthenticatorControllerAuthenticator extends AbstractLoginFormAuthenticato
 
         // For example:
 
-        return new RedirectResponse($this->urlGenerator->generate('admin'));
+        $email = $request->request->get('email', '');
+        if($email === "adminquaiantique@quaiant.fr") {   
+            return new RedirectResponse($this->urlGenerator->generate('admin'));
+        }
+        return new RedirectResponse($this->urlGenerator->generate('app_home'));
     }
 
     protected function getLoginUrl(Request $request): string
