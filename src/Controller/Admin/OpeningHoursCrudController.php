@@ -20,6 +20,7 @@ class OpeningHoursCrudController extends AbstractCrudController
             AssociationField::new('day'),
             BooleanField::new('open'),
             BooleanField::new('lunch'),
+            BooleanField::new('diner'),
             AssociationField::new('openingHours'),
             AssociationField::new('openMinutes'),
             AssociationField::new('closeHours'),
