@@ -33,7 +33,7 @@ class Client
     #[ORM\ManyToOne(inversedBy: 'clients')]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(['client:list', 'client:item'])]
-    private ?user $user = null;
+    private ?User $user = null;
 
     #[ORM\ManyToMany(targetEntity: Allergy::class, inversedBy: 'clients')]
     #[Groups(['client:list', 'client:item'])]
