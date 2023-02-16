@@ -97,23 +97,21 @@ class Images
         return $this->imageName;
     }
 
-    public function setImageName(string $ImageName): self
+    public function setImageName(?string $ImageFile): self
     {
-        $this->imageName = $ImageName;
+        $this->imageName = $ImageFile;
 
         return $this;
     }
 
-    public function getImageSize(): ?string
+    public function getImageSize(): ?int
     {
         return $this->imageSize;
     }
 
-    public function setImageSize(string $ImageSize): self
+    public function setImageSize(?int $imageSize): void
     {
-        $this->imageSize = $ImageSize;
-
-        return $this;
+        $this->imageSize = $imageSize;
     }
 
     public function getCreatedAt(): ?\DateTimeImmutable
