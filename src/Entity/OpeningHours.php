@@ -30,7 +30,7 @@ class OpeningHours
     private ?Minutes $closeMinutes = null;
 
     #[ORM\Column]
-    private ?bool $open = null;
+    private ?bool $close = null;
 
     #[ORM\Column]
     private ?bool $lunch = null;
@@ -103,14 +103,14 @@ class OpeningHours
         return $this;
     }
 
-    public function isOpen(): ?bool
+    public function isClose(): ?bool
     {
-        return $this->open;
+        return $this->close;
     }
 
-    public function setOpen(bool $open): self
+    public function setClose(bool $close): self
     {
-        $this->open = $open;
+        $this->close = $close;
 
         return $this;
     }
