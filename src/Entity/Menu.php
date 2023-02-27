@@ -28,7 +28,7 @@ class Menu
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['menu:list', 'menu:item'])]
+    #[Groups(['menu:list', 'menu:item', 'formulas:list', 'formulas:item'])]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]

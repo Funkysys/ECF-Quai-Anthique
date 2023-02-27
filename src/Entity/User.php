@@ -45,6 +45,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\ManyToMany(targetEntity: Allergy::class)]
+    #[Groups(['user:list', 'user:item'])]
     private Collection $allergy;
 
     #[ORM\Column(length: 255)]

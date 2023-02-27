@@ -28,7 +28,7 @@ class Formulas
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['formulas:list', 'formulas:item'])]
+    #[Groups(['formulas:list', 'formulas:item', 'menu:list', 'menu:item'])]
     private ?string $title = null;
 
     #[ORM\ManyToMany(targetEntity: Menu::class, mappedBy: 'formulas')]

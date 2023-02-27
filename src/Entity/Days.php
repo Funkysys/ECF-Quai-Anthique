@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\DaysRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\DaysRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: DaysRepository::class)]
 class Days
@@ -16,6 +17,7 @@ class Days
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['openingHours:list', 'openingHours:item'])]
     private ?string $day = null;
 
     #[ORM\OneToMany(mappedBy: 'day', targetEntity: OpeningHours::class)]

@@ -26,7 +26,7 @@ class Dish
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['dish:list', 'dish:item'])]
+    #[Groups(['dish:list', 'dish:item', 'subcat:list', 'subcat:item', 'category:list', 'category:item'])]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -44,7 +44,13 @@ class Dish
 
     #[ORM\ManyToOne(inversedBy: 'dishes')]
     #[ORM\JoinColumn(nullable: true)]
+    #[Groups(['dish:list', 'dish:item'])]
     private ?Category $category = null;
+
+    public function __toString()
+    {
+        return $this->title;
+    }
 
     public function getId(): ?int
     {

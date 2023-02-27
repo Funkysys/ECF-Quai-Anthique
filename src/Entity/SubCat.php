@@ -36,7 +36,7 @@ class SubCat
     private ?Category $category = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['subcat:list', 'subcat:item'])]
+    #[Groups(['subcat:list', 'subcat:item', 'category:list', 'category:item', 'dish:list', 'dish:item'])]
     private ?string $title = null;
 
     public function __construct()

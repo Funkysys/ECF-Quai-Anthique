@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\MinutesRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\MinutesRepository;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: MinutesRepository::class)]
 class Minutes
@@ -14,6 +15,7 @@ class Minutes
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Groups(['openingHours:list', 'openingHours:item'])]
     private ?int $minutes = null;
 
     public function __toString()

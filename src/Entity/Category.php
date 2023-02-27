@@ -27,14 +27,15 @@ class Category
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['category:list', 'category:item'])]
+    #[Groups(['category:list', 'category:item', 'subcat:list', 'subcat:item', 'dish:list', 'dish:item'])]
     private ?string $title = null;
 
-    #[ORM\OneToMany(mappedBy: 'Category', targetEntity: SubCat::class)]
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: SubCat::class)]
     #[Groups(['category:list', 'category:item'])]
     private Collection $subCats;
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Dish::class)]
+    #[Groups(['category:list', 'category:item'])]
     private Collection $dishes;
 
     public function __construct()

@@ -25,7 +25,7 @@ class Allergy
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['allergy:list', 'allergy:item'])]
+    #[Groups(['allergy:list', 'allergy:item', 'user:list', 'user:item'])]
     private ?string $name = null;
 
     public function __toString()
