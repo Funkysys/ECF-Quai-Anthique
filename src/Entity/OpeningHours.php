@@ -28,35 +28,35 @@ class OpeningHours
 
     #[ORM\ManyToOne(inversedBy: 'openingHours')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['restaurant:list', 'restaurant:item'])]
+    #[Groups(['openingHours:list', 'openingHours:item'])]
     private ?Days $day = null;
 
     #[ORM\ManyToOne]
-    #[Groups(['restaurant:list', 'restaurant:item'])]
+    #[Groups(['openingHours:list', 'openingHours:item'])]
     private ?Hours $openingHours = null;
 
     #[ORM\ManyToOne]
-    #[Groups(['restaurant:list', 'restaurant:item'])]
+    #[Groups(['openingHours:list', 'openingHours:item'])]
     private ?Minutes $openMinutes = null;
 
     #[ORM\ManyToOne]
-    #[Groups(['restaurant:list', 'restaurant:item'])]
+    #[Groups(['openingHours:list', 'openingHours:item'])]
     private ?Hours $closeHours = null;
 
     #[ORM\ManyToOne]
-    #[Groups(['restaurant:list', 'restaurant:item'])]
+    #[Groups(['openingHours:list', 'openingHours:item'])]
     private ?Minutes $closeMinutes = null;
 
     #[ORM\Column]
-    #[Groups(['restaurant:list', 'restaurant:item'])]
+    #[Groups(['openingHours:list', 'openingHours:item'])]
     private ?bool $close = null;
 
     #[ORM\Column]
-    #[Groups(['restaurant:list', 'restaurant:item'])]
+    #[Groups(['openingHours:list', 'openingHours:item'])]
     private ?bool $lunch = null;
 
     #[ORM\Column(nullable: true)]
-    #[Groups(['restaurant:list', 'restaurant:item'])]
+    #[Groups(['openingHours:list', 'openingHours:item'])]
     private ?bool $diner = null;
 
     public function getId(): ?int
