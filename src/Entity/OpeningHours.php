@@ -2,10 +2,23 @@
 
 namespace App\Entity;
 
-use App\Repository\OpeningHoursRepository;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Post;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use App\Repository\OpeningHoursRepository;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: OpeningHoursRepository::class)]
+#[ApiResource(
+    operations: [
+        new Get(normalizationContext: ['groups' => 'openingHours:item']),
+        new GetCollection(normalizationContext: ['groups' => 'openingHours:list']),
+        new Post()   
+        ]
+    )
+]
 class OpeningHours
 {
     #[ORM\Id]
@@ -15,27 +28,35 @@ class OpeningHours
 
     #[ORM\ManyToOne(inversedBy: 'openingHours')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['restaurant:list', 'restaurant:item'])]
     private ?Days $day = null;
 
     #[ORM\ManyToOne]
+    #[Groups(['restaurant:list', 'restaurant:item'])]
     private ?Hours $openingHours = null;
 
     #[ORM\ManyToOne]
+    #[Groups(['restaurant:list', 'restaurant:item'])]
     private ?Minutes $openMinutes = null;
 
     #[ORM\ManyToOne]
+    #[Groups(['restaurant:list', 'restaurant:item'])]
     private ?Hours $closeHours = null;
 
     #[ORM\ManyToOne]
+    #[Groups(['restaurant:list', 'restaurant:item'])]
     private ?Minutes $closeMinutes = null;
 
     #[ORM\Column]
+    #[Groups(['restaurant:list', 'restaurant:item'])]
     private ?bool $close = null;
 
     #[ORM\Column]
+    #[Groups(['restaurant:list', 'restaurant:item'])]
     private ?bool $lunch = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['restaurant:list', 'restaurant:item'])]
     private ?bool $diner = null;
 
     public function getId(): ?int

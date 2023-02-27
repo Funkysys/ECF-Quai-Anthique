@@ -4,18 +4,8 @@ namespace App\Entity;
 
 use App\Repository\HoursRepository;
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Metadata\Get;
-use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\GetCollection;
-use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ORM\Entity(repositoryClass: HoursRepository::class)]#[ApiResource(
-    operations: [
-        new Get(normalizationContext: ['groups' => 'hours:item']),
-        new GetCollection(normalizationContext: ['groups' => 'hours:list'])   
-        ]
-    )
-]
+#[ORM\Entity(repositoryClass: HoursRepository::class)]
 class Hours
 {
     #[ORM\Id]
