@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\Get;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\TableRepository;
 use ApiPlatform\Metadata\ApiResource;
@@ -31,9 +32,13 @@ class Table
     #[Groups(['table:list', 'table:item'])]
     private ?int $nb_covers = null;
 
-    #[ORM\Column(length: 255)]
-    #[Groups(['table:list', 'table:item'])]
-    private ?int $hours = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $reservationHour = null;
+
+    #[ORM\ManyToOne(inversedBy: 'tables')]
+    private ?User $user = null;
+
+
 
     public function getId(): ?int
     {
@@ -52,15 +57,29 @@ class Table
         return $this;
     }
 
-    public function getHours(): ?int
+    public function getReservationHour(): ?\DateTimeInterface
     {
-        return $this->hours;
+        return $this->reservationHour;
     }
 
-    public function setHours(int $hours): self
+    public function setReservationHour(\DateTimeInterface $reservationHour): self
     {
-        $this->hours = $hours;
+        $this->reservationHour = $reservationHour;
 
         return $this;
     }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    
 }

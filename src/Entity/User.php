@@ -43,16 +43,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     #[Groups(['user:list', 'user:item'])]
     private ?string $password = null;
+    
+    #[ORM\Column(length: 255)]
+    #[Groups(['user:list', 'user:item'])]
+    private ?string $name = null;
 
-    #[ORM\ManyToMany(targetEntity: Allergy::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Table::class)]
+    #[Groups(['user:list', 'user:item'])]
+    private Collection $tables;
+
+    #[ORM\ManyToMany(targetEntity: Allergy::class, inversedBy: 'users')]
     #[Groups(['user:list', 'user:item'])]
     private Collection $allergy;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
-
     public function __construct()
     {
+        $this->tables = new ArrayCollection();
         $this->allergy = new ArrayCollection();
     }
 
@@ -158,6 +164,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Table>
+     */
+    public function getTables(): Collection
+    {
+        return $this->tables;
+    }
+
+    public function addTable(Table $table): self
+    {
+        if (!$this->tables->contains($table)) {
+            $this->tables->add($table);
+            $table->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTable(Table $table): self
+    {
+        if ($this->tables->removeElement($table)) {
+            // set the owning side to null (unless already changed)
+            if ($table->getUser() === $this) {
+                $table->setUser(null);
+            }
+        }
 
         return $this;
     }

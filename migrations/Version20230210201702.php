@@ -57,13 +57,12 @@ final class Version20230210201702 extends AbstractMigration
         $this->addSql('ALTER TABLE user_allergy ADD CONSTRAINT FK_93BC5CBFA76ED395 FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE user_allergy ADD CONSTRAINT FK_93BC5CBFDBFD579D FOREIGN KEY (allergy_id) REFERENCES allergy (id) ON DELETE CASCADE');
 
-        $allergns = array('Gluten', 'Peanuts', 'Milk', 'Eggs', 'Nuts', 'Mollusc', 'Seafood', 'Mustard', 'Fish', 'Celery', 'Soy', 'Sulphites', 'Sesame', 'Lupine');
-
+        $allergns = array('Gluten', 'Arachide', 'Lait', 'Oeufs', 'Fruits à coque', 'Mollusques', 'Fruits de mer', 'Moutarde', 'Poisson', 'Céleri', 'Soja', 'Sulfites', 'Sésame', 'Lupin');
         foreach ($allergns as $allergn) {
             $this->addSql('INSERT INTO allergy (name) VALUES (?)', array($allergn));
         }
-        $days = array('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday');
 
+        $days = array('Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche');
         foreach ($days as $day) {
             $this->addSql('INSERT INTO days (day) VALUES (?)', array($day));
         }
