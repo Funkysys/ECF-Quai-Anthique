@@ -27,7 +27,7 @@ class Allergy
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['allergy:list', 'allergy:item', 'user:list', 'user:item'])]
+    #[Groups(['allergy:list', 'allergy:item', 'user:list', 'user:item', 'groups' => 'user:create'])]
     private ?string $name = null;
 
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'allergy')]
@@ -55,7 +55,6 @@ class Allergy
     
     public function setName(string $name): self
     {
-        $allergns = ['Gluten', 'Peanuts', 'Milk', 'Eggs', 'Nuts', 'Mollusc', 'Seafood', 'Mustard', 'Fish', 'Celery', 'Soy', 'Sulphites', 'Sesame', 'Lupine'];
         $this->name = $name;
 
         return $this;

@@ -29,11 +29,12 @@ class Table
     private ?int $id = null;
 
     #[ORM\Column]
-    #[Groups(['table:list', 'table:item'])]
+    #[Groups(['table:list', 'table:item' , 'groups' => 'user:create'])]
     private ?int $nb_covers = null;
-
+    
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $reservationHour = null;
+    #[Groups(['table:list', 'table:item' , 'groups' => 'user:create'])]
+    private ?\DateTimeInterface $reservationDate = null;
 
     #[ORM\ManyToOne(inversedBy: 'tables')]
     private ?User $user = null;
@@ -57,14 +58,14 @@ class Table
         return $this;
     }
 
-    public function getReservationHour(): ?\DateTimeInterface
+    public function getreservationDate(): ?\DateTimeInterface
     {
-        return $this->reservationHour;
+        return $this->reservationDate;
     }
 
-    public function setReservationHour(\DateTimeInterface $reservationHour): self
+    public function setreservationDate(\DateTimeInterface $reservationDate): self
     {
-        $this->reservationHour = $reservationHour;
+        $this->reservationDate = $reservationDate;
 
         return $this;
     }

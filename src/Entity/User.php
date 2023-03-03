@@ -12,6 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -19,8 +20,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiResource(
     operations: [
         new Get(normalizationContext: ['groups' => 'user:item']),
-        new GetCollection(normalizationContext: ['groups' => 'user:list'])   
-        ]
+        new GetCollection(normalizationContext: ['groups' => 'user:list']),   
+        new Post(normalizationContext: ['groups' => 'user:create'])
+    ]
+
     )
 ]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -45,15 +48,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
     
     #[ORM\Column(length: 255)]
-    #[Groups(['user:list', 'user:item'])]
+    #[Groups(['user:list', 'user:item', 'groups' => 'user:create'])]
+    
     private ?string $name = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Table::class)]
-    #[Groups(['user:list', 'user:item'])]
+    #[Groups(['user:list', 'user:item', 'groups' => 'user:create'])]
     private Collection $tables;
 
     #[ORM\ManyToMany(targetEntity: Allergy::class, inversedBy: 'users')]
-    #[Groups(['user:list', 'user:item'])]
+    #[Groups(['user:list', 'user:item', 'groups' => 'user:create'])]
     private Collection $allergy;
 
     public function __construct()
