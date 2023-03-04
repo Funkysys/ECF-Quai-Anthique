@@ -46,13 +46,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $email = null;
 
     #[ORM\Column]
+    #[Groups(['user:create', 'user:update'])]
     private array $roles = [];
 
     /**
      * @var string The hashed password
      */
     #[ORM\Column]
-    #[Groups(['user:list', 'user:item', 'user:create', 'user:update'])]
     private ?string $password = null;
 
     #[Groups(['user:create', 'user:update'])]
