@@ -52,7 +52,7 @@ security:
                 lifetime: 604800 # 1 week in seconds
                 # by default, the feature is enabled by checking a checkbox in the
                 # login form , uncomment the following line to always enable it.
-                #always_remember_me: true
+                always_remember_me: true
 
             logout:
                 # The route name the user can go to in order to logout
