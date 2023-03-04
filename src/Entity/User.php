@@ -2,28 +2,34 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\State\UserPasswordHasher;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
-use ApiPlatform\Metadata\Get;
-use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\GetCollection;
-use ApiPlatform\Metadata\Post;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
-#[ApiResource(
-    operations: [
-        new Get(normalizationContext: ['groups' => 'user:item']),
-        new GetCollection(normalizationContext: ['groups' => 'user:list']),   
-        new Post(normalizationContext: ['groups' => 'user:create'])
-    ]
-
+#[
+    ApiResource(
+        operations: [
+            new Get(normalizationContext: ['groups' => 'user:item']),
+            new Post(processor: UserPasswordHasher::class, validationContext: ['groups' => 'user:create']),
+            new Put(processor: UserPasswordHasher::class),
+            new Patch(processor: UserPasswordHasher::class),
+        ],
+        normalizationContext: ['groups' => ['user:read']],
+        denormalizationContext: ['groups' => ['user:create', 'user:update']],
     )
 ]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -34,7 +40,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
-    #[Groups(['user:list', 'user:item'])]
+    #[Assert\NotBlank]
+    #[Assert\Email]
+    #[Groups(['user:list', 'user:item', 'user:create', 'user:update'])]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -44,20 +52,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
-    #[Groups(['user:list', 'user:item'])]
+    #[Groups(['user:list', 'user:item', 'user:create', 'user:update'])]
     private ?string $password = null;
-    
+
+    #[Groups(['user:create', 'user:update'])]
+    private ?string $plainPassword = null;
+
     #[ORM\Column(length: 255)]
-    #[Groups(['user:list', 'user:item', 'groups' => 'user:create'])]
-    
+    #[Groups(['user:list', 'user:item', 'user:create', 'user:update'])]
     private ?string $name = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Table::class)]
-    #[Groups(['user:list', 'user:item', 'groups' => 'user:create'])]
+    #[Groups(['user:list', 'user:item', 'user:create', 'user:update'])]
     private Collection $tables;
 
     #[ORM\ManyToMany(targetEntity: Allergy::class, inversedBy: 'users')]
-    #[Groups(['user:list', 'user:item', 'groups' => 'user:create'])]
+    #[Groups(['user:list', 'user:item', 'user:create', 'user:update'])]
     private Collection $allergy;
 
     public function __construct()
@@ -127,13 +137,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(?string $plainPassword): self
+    {
+        $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
+
     /**
      * @see UserInterface
      */
     public function eraseCredentials()
     {
         // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        $this->plainPassword = null;
     }
 
     /**
