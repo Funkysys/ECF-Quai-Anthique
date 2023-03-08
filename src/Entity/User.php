@@ -62,18 +62,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['user:list', 'user:item', 'user:create', 'user:update'])]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Table::class)]
-    #[Groups(['user:list', 'user:item', 'user:create', 'user:update'])]
-    private Collection $tables;
+
 
     #[ORM\ManyToMany(targetEntity: Allergy::class, inversedBy: 'users')]
     #[Groups(['user:list', 'user:item', 'user:create', 'user:update'])]
     private Collection $allergy;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Reservation::class)]
+    private Collection $reservations;
+
     public function __construct()
     {
-        $this->tables = new ArrayCollection();
+        
         $this->allergy = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
     }
 
     public function __toString()
@@ -199,32 +201,34 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Table>
+     * @return Collection<int, Reservation>
      */
-    public function getTables(): Collection
+    public function getReservations(): Collection
     {
-        return $this->tables;
+        return $this->reservations;
     }
 
-    public function addTable(Table $table): self
+    public function addReservation(Reservation $reservation): self
     {
-        if (!$this->tables->contains($table)) {
-            $this->tables->add($table);
-            $table->setUser($this);
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations->add($reservation);
+            $reservation->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeTable(Table $table): self
+    public function removeReservation(Reservation $reservation): self
     {
-        if ($this->tables->removeElement($table)) {
+        if ($this->reservations->removeElement($reservation)) {
             // set the owning side to null (unless already changed)
-            if ($table->getUser() === $this) {
-                $table->setUser(null);
+            if ($reservation->getUser() === $this) {
+                $reservation->setUser(null);
             }
         }
 
         return $this;
     }
+
+    
 }
