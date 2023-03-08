@@ -4,6 +4,9 @@ namespace App\Controller\Admin;
 
 use App\Entity\Table;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 
 class TableCrudController extends AbstractCrudController
 {
@@ -12,14 +15,14 @@ class TableCrudController extends AbstractCrudController
         return Table::class;
     }
 
-    /*
+    
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
+            DateField::new('reservationDate'),
+            IntegerField::new('nb_covers'),
+            AssociationField::new('user')
         ];
     }
-    */
+    
 }
