@@ -7,6 +7,8 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\TableRepository;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Put;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -18,7 +20,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
         operations: [
             new Get(),
             new GetCollection(),
-            new Post()
+            new Post(validationContext: ['groups' => 'table:create']),
+            new Put(),
+            new Delete()
         ],
         normalizationContext: ['groups' => ['table:read']],
         denormalizationContext: ['groups' => ['table:create']],
@@ -43,9 +47,6 @@ class Table
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(['table:read', 'table:create', 'user:create'])]
     private ?User $user = null;
-
-
-
 
     public function getId(): ?int
     {
