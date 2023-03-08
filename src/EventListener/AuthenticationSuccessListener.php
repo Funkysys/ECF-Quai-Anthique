@@ -1,10 +1,17 @@
+<?php
+
+namespace App\EventListener;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\AuthenticationSuccessEvent;
 
-/**
- * @param AuthenticationSuccessEvent $event
- */
-public function onAuthenticationSuccessResponse(AuthenticationSuccessEvent $event)
-{
+
+class AuthenticationSuccessListener{
+
+  /**
+    * @param AuthenticationSuccessEvent $event
+  */
+  public function onAuthenticationSuccessResponse(AuthenticationSuccessEvent $event)
+  {
     $data = $event->getData();
     $user = $event->getUser();
 
@@ -13,8 +20,13 @@ public function onAuthenticationSuccessResponse(AuthenticationSuccessEvent $even
     }
 
     $data['data'] = array(
-        'id' => $user->getId(),
+        'id' => $user->getId(), 
+        'roles' => $user->getRoles(),
     );
 
     $event->setData($data);
+  }
 }
+        
+
+     
