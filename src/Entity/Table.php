@@ -13,12 +13,15 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: TableRepository::class)]
 #[ORM\Table(name: '`table`')]
-#[ApiResource(
-    operations: [
-        new Get(normalizationContext: ['groups' => 'table:item']),
-        new GetCollection(normalizationContext: ['groups' => 'table:list']),
-        new Post()
-        ]
+#[
+    ApiResource(
+        operations: [
+            new Get(),
+            new GetCollection(),
+            new Post()
+        ],
+        normalizationContext: ['groups' => ['table:read']],
+        denormalizationContext: ['groups' => ['table:create']],
     )
 ]
 class Table
@@ -29,15 +32,18 @@ class Table
     private ?int $id = null;
 
     #[ORM\Column]
-    #[Groups(['table:list', 'table:item' , 'groups' => 'user:create'])]
+    #[Groups(['table:read', 'table:create', 'user:create'])]
     private ?int $nb_covers = null;
-    
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Groups(['table:list', 'table:item' , 'groups' => 'user:create'])]
+    #[Groups(['table:read', 'table:create', 'user:create'])]
     private ?\DateTimeInterface $reservationDate = null;
 
-    #[ORM\ManyToOne(inversedBy: 'tables')]
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['table:read', 'table:create', 'user:create'])]
     private ?User $user = null;
+
 
 
 
@@ -81,6 +87,4 @@ class Table
 
         return $this;
     }
-
-    
 }
