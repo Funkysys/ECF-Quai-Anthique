@@ -5,7 +5,6 @@ namespace App\Controller\Admin;
 use App\Entity\Dish;
 use App\Entity\Menu;
 use App\Entity\User;
-use App\Entity\Table;
 use App\Entity\Images;
 use App\Entity\SubCat;
 use App\Entity\Allergy;
@@ -64,7 +63,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('OpeningHours', 'fas fa-hourglass-empty', OpeningHours::class);
         yield MenuItem::linkToCrud('Images', 'fas fa-images', Images::class);
         yield MenuItem::linkToCrud('Restaurant', 'fab fa-rebel', Restaurant::class);
-        yield MenuItem::linkToCrud('Table', 'fas fa-table-tennis-paddle-ball', Table::class);
         yield MenuItem::linkToCrud('User', 'fas fa-user-astronaut', User::class);
     }
 }

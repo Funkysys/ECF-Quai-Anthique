@@ -17,7 +17,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
     operations: [
         new Get(normalizationContext: ['groups' => 'images:item']),
         new GetCollection(normalizationContext: ['groups' => 'images:list'])   
-        ]
+    ],
+    paginationItemsPerPage: 6
     )
 ]
 class Images
