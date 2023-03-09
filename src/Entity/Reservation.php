@@ -29,7 +29,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         normalizationContext: ['groups' => ['reservation:read']],
         denormalizationContext: ['groups' => ['reservation:create']],
     ),
-    ApiFilter(SearchFilter::class, properties: ['reservationDate' => 'exact', 'user' => 'exact']),
+    ApiFilter(SearchFilter::class, properties: ['reservationDate' => 'exact', 'lunchOrDiner', 'user' => 'exact']),
     ApiFilter(OrderFilter::class, properties: ['reservationDate' => 'desc']),
 ]
 class Reservation
