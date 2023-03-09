@@ -12,6 +12,7 @@ use App\Entity\Category;
 use App\Entity\Formulas;
 use App\Entity\Restaurant;
 use App\Entity\OpeningHours;
+use App\Entity\Reservation;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -62,6 +63,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Menu', 'fab fa-galactic-republic', Menu::class);
         yield MenuItem::linkToCrud('OpeningHours', 'fas fa-hourglass-empty', OpeningHours::class);
         yield MenuItem::linkToCrud('Images', 'fas fa-images', Images::class);
+        yield MenuItem::linkToCrud('Reservation', 'fas fa-images', Reservation::class);
         yield MenuItem::linkToCrud('Restaurant', 'fab fa-rebel', Restaurant::class);
         yield MenuItem::linkToCrud('User', 'fas fa-user-astronaut', User::class);
     }
