@@ -29,7 +29,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         normalizationContext: ['groups' => ['reservation:read']],
         denormalizationContext: ['groups' => ['reservation:create']],
     ),
-    ApiFilter(SearchFilter::class, properties: ['reservationDate' => 'exact', 'lunchOrdDiner' => 'exact', 'user' => 'exact']),
+    ApiFilter(SearchFilter::class, properties: ['reservationDate' => 'exact', 'lunchOrDiner' => 'exact', 'user' => 'exact']),
     ApiFilter(OrderFilter::class, properties: ['reservationDate' => 'desc']),
 ]
 class Reservation
@@ -49,7 +49,7 @@ class Reservation
     
     #[ORM\Column]
     #[Groups(['reservation:read', 'reservation:create', 'user:create'])]
-    private ?bool $lunchOrdDiner = null;
+    private ?bool $lunchOrDiner = null;
     
     #[ORM\ManyToOne(inversedBy: 'reservations')]
     #[ORM\JoinColumn(nullable: false)]
@@ -87,12 +87,12 @@ class Reservation
 
     public function isLunchOrdDiner(): ?bool
     {
-        return $this->lunchOrdDiner;
+        return $this->lunchOrDiner;
     }
 
     public function setLunchOrdDiner(bool $lunchOrdDiner): self
     {
-        $this->lunchOrdDiner = $lunchOrdDiner;
+        $this->lunchOrDiner = $lunchOrdDiner;
 
         return $this;
     }
