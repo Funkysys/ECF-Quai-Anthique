@@ -21,9 +21,9 @@ class ReservationCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            DateField::new('reservationDate'),
+            DateField::new('reservationDate')->renderAsChoice(),
             IntegerField::new('nb_covers'),
-            BooleanField::new('lunchOrdDiner'),
+            BooleanField::new('lunchOrDiner'),
             AssociationField::new('user')
         ];
     }

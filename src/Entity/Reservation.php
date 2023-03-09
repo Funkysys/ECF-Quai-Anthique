@@ -29,7 +29,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         normalizationContext: ['groups' => ['reservation:read']],
         denormalizationContext: ['groups' => ['reservation:create']],
     ),
-    ApiFilter(SearchFilter::class, properties: ['reservationDate' => 'exact', 'lunchOrDiner' => 'exact', 'user' => 'exact']),
+    ApiFilter(SearchFilter::class, properties: ['reservationDate' => 'exact', 'lunchOrDiner' , 'user' => 'exact']),
     ApiFilter(OrderFilter::class, properties: ['reservationDate' => 'desc']),
 ]
 class Reservation
@@ -85,14 +85,14 @@ class Reservation
         return $this;
     }
 
-    public function isLunchOrdDiner(): ?bool
+    public function isLunchOrDiner(): ?bool
     {
         return $this->lunchOrDiner;
     }
 
-    public function setLunchOrdDiner(bool $lunchOrdDiner): self
+    public function setLunchOrDiner(bool $lunchOrDiner): self
     {
-        $this->lunchOrDiner = $lunchOrdDiner;
+        $this->lunchOrDiner = $lunchOrDiner;
 
         return $this;
     }
