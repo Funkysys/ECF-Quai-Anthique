@@ -14,6 +14,7 @@ use ApiPlatform\Metadata\GetCollection;
 use App\Repository\ReservationRepository;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Doctrine\Orm\Filter\BooleanFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
@@ -29,8 +30,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
         normalizationContext: ['groups' => ['reservation:read']],
         denormalizationContext: ['groups' => ['reservation:create']],
     ),
-    ApiFilter(SearchFilter::class, properties: ['reservationDate' => 'exact', 'lunchOrDiner' , 'user' => 'exact']),
+    ApiFilter(SearchFilter::class, properties: ['reservationDate' => 'exact', 'user' => 'exact']),
     ApiFilter(OrderFilter::class, properties: ['reservationDate' => 'desc']),
+    ApiFilter(BooleanFilter::class, properties: ['lunchOrDiner'])
 ]
 class Reservation
 {
