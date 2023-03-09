@@ -2,18 +2,18 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
-use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
-use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\Put;
 use ApiPlatform\Metadata\Post;
 use Doctrine\DBAL\Types\Types;
 use ApiPlatform\Metadata\Delete;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
 use App\Repository\ReservationRepository;
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
@@ -47,13 +47,14 @@ class Reservation
     #[Groups(['reservation:read', 'reservation:create', 'user:create'])]
     private ?\DateTimeInterface $reservationDate = null;
     
-    #[ORM\ManyToOne(inversedBy: 'reservations')]
-    #[Groups(['reservation:read', 'reservation:create', 'user:create'])]
-    private ?User $user = null;
-
     #[ORM\Column]
     #[Groups(['reservation:read', 'reservation:create', 'user:create'])]
-    private ?bool $lunchOrDiner = null;
+    private ?bool $lunchOrdDiner = null;
+    
+    #[ORM\ManyToOne(inversedBy: 'reservations')]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['reservation:read', 'reservation:create', 'user:create'])]
+    private ?User $user = null;
 
     public function getId(): ?int
     {
@@ -84,6 +85,18 @@ class Reservation
         return $this;
     }
 
+    public function isLunchOrdDiner(): ?bool
+    {
+        return $this->lunchOrdDiner;
+    }
+
+    public function setLunchOrdDiner(bool $lunchOrdDiner): self
+    {
+        $this->lunchOrdDiner = $lunchOrdDiner;
+
+        return $this;
+    }
+
     public function getUser(): ?User
     {
         return $this->user;
@@ -92,18 +105,6 @@ class Reservation
     public function setUser(?User $user): self
     {
         $this->user = $user;
-
-        return $this;
-    }
-
-    public function isLunchOrDiner(): ?bool
-    {
-        return $this->lunchOrDiner;
-    }
-
-    public function setLunchOrDiner(bool $lunchOrDiner): self
-    {
-        $this->lunchOrDiner = $lunchOrDiner;
 
         return $this;
     }

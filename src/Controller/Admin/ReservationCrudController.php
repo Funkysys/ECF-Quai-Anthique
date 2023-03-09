@@ -7,6 +7,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use phpDocumentor\Reflection\Types\Boolean;
 
 class ReservationCrudController extends AbstractCrudController
 {
@@ -21,6 +23,7 @@ class ReservationCrudController extends AbstractCrudController
         return [
             DateField::new('reservationDate'),
             IntegerField::new('nb_covers'),
+            BooleanField::new('lunchOrdDiner'),
             AssociationField::new('user')
         ];
     }
