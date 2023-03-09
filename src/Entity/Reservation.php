@@ -51,6 +51,10 @@ class Reservation
     #[Groups(['reservation:read', 'reservation:create', 'user:create'])]
     private ?User $user = null;
 
+    #[ORM\Column]
+    #[Groups(['reservation:read', 'reservation:create', 'user:create'])]
+    private ?bool $lunchOrDiner = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -88,6 +92,18 @@ class Reservation
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function isLunchOrDiner(): ?bool
+    {
+        return $this->lunchOrDiner;
+    }
+
+    public function setLunchOrDiner(bool $lunchOrDiner): self
+    {
+        $this->lunchOrDiner = $lunchOrDiner;
 
         return $this;
     }
