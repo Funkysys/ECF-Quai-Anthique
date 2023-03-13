@@ -27,6 +27,9 @@ security:
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
             jwt: ~
+            refresh_jwt:
+                check_path: api_refresh_token
+                
             # This allows the user to login by submitting a username and password
             # Reference: https://symfony.com/doc/current/security/form_login_setup.html
             form_login:
