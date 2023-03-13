@@ -34,7 +34,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     ApiFilter(OrderFilter::class, properties: ['reservationDate' => 'desc']),
     ApiFilter(BooleanFilter::class, properties: ['lunchOrDiner'])
 ]
-class Reservation
+class Reservation implements UserOwnedInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
