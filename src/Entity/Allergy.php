@@ -32,11 +32,6 @@ class Allergy
     #[Groups(['allergy:list', 'allergy:item', 'user:list', 'user:item', 'groups' => 'user:create'])]
     private ?string $name = null;
 
-    public function __construct()
-    {
-        $this->users = new ArrayCollection();
-    }
-
     public function __toString()
     {
         return $this->name;
