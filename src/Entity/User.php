@@ -9,6 +9,7 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\UserRepository;
 use App\State\UserPasswordHasher;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -63,10 +64,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $name = null;
 
     #[Groups(['user:list', 'user:item', 'user:create', 'user:update'])]
-    private ?array $allergy = [];
+
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Reservation::class)]
     private Collection $reservations;
+
+    #[ORM\Column(type: Types::ARRAY, nullable: true)]
+    private array $allergy = [];
 
 
 
@@ -203,22 +207,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    
-
-    /**
-     * Get the value of allergy
-     */ 
-    public function getAllergy()
+    public function getAllergy(): array
     {
         return $this->allergy;
     }
 
-    /**
-     * Set the value of allergy
-     *
-     * @return  self
-     */ 
-    public function setAllergy($allergy)
+    public function setAllergy(?array $allergy): self
     {
         $this->allergy = $allergy;
 
