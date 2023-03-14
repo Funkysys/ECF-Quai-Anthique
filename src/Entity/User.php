@@ -63,7 +63,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $name = null;
 
     #[Groups(['user:list', 'user:item', 'user:create', 'user:update'])]
-    private Collection $allergy;
+    private ?array $allergy = [];
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Reservation::class)]
     private Collection $reservations;
@@ -72,8 +72,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __construct()
     {
-        
-        $this->allergy = new ArrayCollection();
         $this->reservations = new ArrayCollection();
     }
 
