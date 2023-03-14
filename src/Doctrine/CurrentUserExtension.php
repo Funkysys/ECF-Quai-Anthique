@@ -45,7 +45,7 @@ final class CurrentUserExtension implements QueryCollectionExtensionInterface, Q
             } else {
                 $queryBuilder->andWhere("$alias.user IS NULL");
             }
-        } else if ($resourceClass === User::class && !$this->security->isGranted("ROLE_USER")) {
+        } else if ($resourceClass === User::class && $this->security->isGranted("ROLE_USER") && $this->security->getUser()->getId()) {
             $alias = $queryBuilder->getRootAliases()[0];
             // dd($this->security->getUser());    
             $queryBuilder
