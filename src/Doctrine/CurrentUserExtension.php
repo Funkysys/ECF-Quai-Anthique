@@ -6,7 +6,7 @@ namespace App\Doctrine;
 use Doctrine\ORM\QueryBuilder;
 use App\Entity\UserOwnedInterface;
 use ApiPlatform\Metadata\Operation;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Bundle\SecurityBundle\Security;
 use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use ApiPlatform\Doctrine\Orm\Extension\QueryItemExtensionInterface;
 use ApiPlatform\Doctrine\Orm\Extension\QueryCollectionExtensionInterface;
