@@ -58,6 +58,11 @@ class Reservation implements UserOwnedInterface
     #[Groups(['reservation:read', 'reservation:create', 'user:create'])]
     private ?User $user = null;
 
+    public function __toString()
+    {
+        return $this->reservationDate . " pour " . $this->nbCovers . " personnes";
+    }
+
     public function getId(): ?int
     {
         return $this->id;
