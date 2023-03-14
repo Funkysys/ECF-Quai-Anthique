@@ -63,13 +63,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['user:list', 'user:item', 'user:create', 'user:update'])]
     private ?string $name = null;
 
-    #[Groups(['user:list', 'user:item', 'user:create', 'user:update'])]
-
-
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Reservation::class)]
     private Collection $reservations;
 
     #[ORM\Column(type: Types::ARRAY, nullable: true)]
+    #[Groups(['user:list', 'user:item', 'user:create', 'user:update'])]
     private array $allergy = [];
 
 
