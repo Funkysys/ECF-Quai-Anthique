@@ -62,9 +62,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['user:list', 'user:item', 'user:create', 'user:update'])]
     private ?string $name = null;
 
-
-
-    #[ORM\ManyToMany(targetEntity: Allergy::class, inversedBy: 'users')]
     #[Groups(['user:list', 'user:item', 'user:create', 'user:update'])]
     private Collection $allergy;
 
@@ -166,30 +163,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->plainPassword = null;
     }
 
-    /**
-     * @return Collection<int, Allergy>
-     */
-    public function getAllergy(): Collection
-    {
-        return $this->allergy;
-    }
-
-    public function addAllergy(Allergy $allergy): self
-    {
-        if (!$this->allergy->contains($allergy)) {
-            $this->allergy->add($allergy);
-        }
-
-        return $this;
-    }
-
-    public function removeAllergy(Allergy $allergy): self
-    {
-        $this->allergy->removeElement($allergy);
-
-        return $this;
-    }
-
     public function getName(): ?string
     {
         return $this->name;
@@ -233,4 +206,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     
+
+    /**
+     * Get the value of allergy
+     */ 
+    public function getAllergy()
+    {
+        return $this->allergy;
+    }
+
+    /**
+     * Set the value of allergy
+     *
+     * @return  self
+     */ 
+    public function setAllergy($allergy)
+    {
+        $this->allergy = $allergy;
+
+        return $this;
+    }
 }
