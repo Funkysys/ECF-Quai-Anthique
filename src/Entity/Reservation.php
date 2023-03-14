@@ -42,11 +42,11 @@ class Reservation implements UserOwnedInterface
     private ?int $id = null;
 
     #[ORM\Column]
-    #[Groups(['reservation:read', 'reservation:create', 'user:create'])]
+    #[Groups(['reservation:read', 'reservation:create', 'user:list', 'user:item','user:create'])]
     private ?int $nbCovers = null;
     
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Groups(['reservation:read', 'reservation:create', 'user:create'])]
+    #[Groups(['reservation:read', 'reservation:create', 'user:list', 'user:item','user:create'])]
     private ?\DateTimeInterface $reservationDate = null;
     
     #[ORM\Column]
