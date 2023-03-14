@@ -64,6 +64,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $name = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Reservation::class)]
+    #[Groups(['user:list', 'user:item', 'user:create', 'user:update'])]
     private Collection $reservations;
 
     #[ORM\Column(type: Types::ARRAY, nullable: true)]
