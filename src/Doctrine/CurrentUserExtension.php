@@ -45,14 +45,12 @@ final class CurrentUserExtension implements QueryCollectionExtensionInterface, Q
             } else {
                 $queryBuilder->andWhere("$alias.user IS NULL");
             }
-        } else if ($resourceClass === User::class) {
+        } else if ($resourceClass === User::class && $this->security->isGranted("ROLE_USER")) {
             $alias = $queryBuilder->getRootAliases()[0];
             // dd($this->security->getUser());    
             $queryBuilder
                     ->andWhere("$alias = :current_user")
                     ->setParameter('current_user', $this->security->getUser()->getId());
-                    
-           
         }
     }
 }
