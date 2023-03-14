@@ -24,6 +24,7 @@ class Allergy
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['allergy:list', 'allergy:item', 'user:list', 'user:item', 'groups' => 'user:create'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]

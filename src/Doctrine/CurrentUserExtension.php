@@ -10,6 +10,7 @@ use Symfony\Component\Security\Core\Security;
 use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use ApiPlatform\Doctrine\Orm\Extension\QueryItemExtensionInterface;
 use ApiPlatform\Doctrine\Orm\Extension\QueryCollectionExtensionInterface;
+use App\Entity\User;
 
 final class CurrentUserExtension implements QueryCollectionExtensionInterface, QueryItemExtensionInterface
 {
@@ -32,8 +33,9 @@ final class CurrentUserExtension implements QueryCollectionExtensionInterface, Q
 
     private function addWhere(string $resourceClass, QueryBuilder $queryBuilder)
     {
+        
         $reflectionClass = new \ReflectionClass($resourceClass);
-        if ($reflectionClass->implementsInterface(UserOwnedInterface::class)) {
+        if ($reflectionClass->implementsInterface(UserOwnedInterface::class) ) {
             $alias = $queryBuilder->getRootAliases()[0];
             $user =  $this->security->getUser();
             if ($user) {
@@ -43,6 +45,14 @@ final class CurrentUserExtension implements QueryCollectionExtensionInterface, Q
             } else {
                 $queryBuilder->andWhere("$alias.user IS NULL");
             }
+        } else if ($resourceClass === User::class) {
+            $alias = $queryBuilder->getRootAliases()[0];
+            // dd($this->security->getUser());    
+            $queryBuilder
+                    ->andWhere("$alias = :current_user")
+                    ->setParameter('current_user', $this->security->getUser()->getId());
+                    
+           
         }
     }
 }
