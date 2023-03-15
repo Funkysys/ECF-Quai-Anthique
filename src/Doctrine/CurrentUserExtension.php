@@ -35,22 +35,22 @@ final class CurrentUserExtension implements QueryCollectionExtensionInterface, Q
     {
         
         $reflectionClass = new \ReflectionClass($resourceClass);
-        if ($reflectionClass->implementsInterface(UserOwnedInterface::class)) {
+        if ($reflectionClass->implementsInterface(UserOwnedInterface::class) ) {
             $alias = $queryBuilder->getRootAliases()[0];
             $user =  $this->security->getUser();
             if ($user) {
                 $queryBuilder
                     ->andWhere("$alias.user = :current_user")
                     ->setParameter('current_user', $this->security->getUser()->getId());
-            } 
+            }  else {
+                $queryBuilder;
+            }
         } else if ($resourceClass === User::class && $this->security->isGranted("ROLE_USER") && $this->security->getUser()->getId()) {
             $alias = $queryBuilder->getRootAliases()[0];
             // dd($this->security->getUser());    
             $queryBuilder
                     ->andWhere("$alias = :current_user")
                     ->setParameter('current_user', $this->security->getUser()->getId());
-        } else {
-            $queryBuilder;
-        }
+        } 
     }
 }
