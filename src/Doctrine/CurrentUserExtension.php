@@ -35,7 +35,7 @@ final class CurrentUserExtension implements QueryCollectionExtensionInterface, Q
     {
         
         $reflectionClass = new \ReflectionClass($resourceClass);
-        if ($reflectionClass->implementsInterface(UserOwnedInterface::class) ) {
+        if ($reflectionClass->implementsInterface(UserOwnedInterface::class) && $this->security->getUser()->getId() && $this->security->isGranted("ROLE_USER")) {
             $alias = $queryBuilder->getRootAliases()[0];
             $user =  $this->security->getUser();
             if ($user) {
