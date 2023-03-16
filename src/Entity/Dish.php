@@ -25,10 +25,11 @@ class Dish
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['dish:list', 'dish:item', 'category:list', 'category:item'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['dish:list', 'dish:item', 'subcat:list', 'subcat:item', 'category:list', 'category:item'])]
+    #[Groups(['dish:list', 'dish:item', 'category:list', 'category:item'])]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]

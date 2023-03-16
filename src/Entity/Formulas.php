@@ -25,10 +25,11 @@ class Formulas
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['formulas:list', 'formulas:item'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['formulas:list', 'formulas:item', 'menu:list', 'menu:item'])]
+    #[Groups(['formulas:list', 'formulas:item'])]
     private ?string $title = null;
     
     #[ORM\Column]
