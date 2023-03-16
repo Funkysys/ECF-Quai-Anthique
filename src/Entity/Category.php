@@ -30,17 +30,12 @@ class Category
     #[Groups(['category:list', 'category:item', 'subcat:list', 'subcat:item', 'dish:list', 'dish:item'])]
     private ?string $title = null;
 
-    #[ORM\OneToMany(mappedBy: 'category', targetEntity: SubCat::class)]
-    #[Groups(['category:list', 'category:item'])]
-    private Collection $subCats;
-
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Dish::class)]
     #[Groups(['category:list', 'category:item'])]
     private Collection $dishes;
 
     public function __construct()
     {
-        $this->subCats = new ArrayCollection();
         $this->dishes = new ArrayCollection();
     }
 
@@ -62,36 +57,6 @@ class Category
     public function setTitle(string $title): self
     {
         $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, SubCat>
-     */
-    public function getSubCats(): Collection
-    {
-        return $this->subCats;
-    }
-
-    public function addSubCat(SubCat $subCat): self
-    {
-        if (!$this->subCats->contains($subCat)) {
-            $this->subCats->add($subCat);
-            $subCat->setCategory($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSubCat(SubCat $subCat): self
-    {
-        if ($this->subCats->removeElement($subCat)) {
-            // set the owning side to null (unless already changed)
-            if ($subCat->getCategory() === $this) {
-                $subCat->setCategory(null);
-            }
-        }
 
         return $this;
     }

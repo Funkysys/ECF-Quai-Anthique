@@ -11,11 +11,13 @@ use ApiPlatform\Metadata\GetCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: DishRepository::class)]
-#[ApiResource(
-    operations: [
-        new Get(normalizationContext: ['groups' => 'dish:item']),
-        new GetCollection(normalizationContext: ['groups' => 'dish:list'])   
-        ]
+#[
+    ApiResource(
+        operations: [
+            new Get(normalizationContext: ['groups' => 'dish:item']),
+            new GetCollection(normalizationContext: ['groups' => 'dish:list'])
+        ],
+        paginationItemsPerPage: 6
     )
 ]
 class Dish
@@ -36,11 +38,6 @@ class Dish
     #[ORM\Column]
     #[Groups(['dish:list', 'dish:item'])]
     private ?int $price = null;
-
-    #[ORM\ManyToOne(inversedBy: 'Dish')]
-    #[ORM\JoinColumn(nullable: true)]
-    #[Groups(['dish:list', 'dish:item'])]
-    private ?SubCat $subCat = null;
 
     #[ORM\ManyToOne(inversedBy: 'dishes')]
     #[ORM\JoinColumn(nullable: true)]
@@ -89,18 +86,6 @@ class Dish
     public function setPrice(int $price): self
     {
         $this->price = $price;
-
-        return $this;
-    }
-
-    public function getSubCat(): ?SubCat
-    {
-        return $this->subCat;
-    }
-
-    public function setSubCat(?SubCat $subCat): self
-    {
-        $this->subCat = $subCat;
 
         return $this;
     }

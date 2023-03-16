@@ -22,7 +22,7 @@ class DishCrudController extends AbstractCrudController
             TextField::new('title'),
             TextEditorField::new('description'),
             IntegerField::new('price'),
-            AssociationField::new('subCat'),
+            AssociationField::new('category'),
         ];
     }
 }
