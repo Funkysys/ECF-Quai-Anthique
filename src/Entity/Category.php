@@ -27,7 +27,7 @@ class Category
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['category:list', 'category:item', 'subcat:list', 'subcat:item', 'dish:list', 'dish:item'])]
+    #[Groups(['category:list', 'category:item', 'dish:list', 'dish:item'])]
     private ?string $title = null;
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Dish::class)]

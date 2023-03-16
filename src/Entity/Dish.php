@@ -32,16 +32,16 @@ class Dish
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Groups(['dish:list', 'dish:item'])]
+    #[Groups(['category:list', 'category:item', 'dish:list', 'dish:item'])]
     private ?string $description = null;
 
     #[ORM\Column]
-    #[Groups(['dish:list', 'dish:item'])]
+    #[Groups(['category:list', 'category:item', 'dish:list', 'dish:item'])]
     private ?int $price = null;
 
     #[ORM\ManyToOne(inversedBy: 'dishes')]
     #[ORM\JoinColumn(nullable: true)]
-    #[Groups(['dish:list', 'dish:item'])]
+    #[Groups(['category:list', 'category:item', 'dish:list', 'dish:item'])]
     private ?Category $category = null;
 
     public function __toString()
