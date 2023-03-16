@@ -6,7 +6,6 @@ use App\Entity\Dish;
 use App\Entity\Menu;
 use App\Entity\User;
 use App\Entity\Images;
-use App\Entity\SubCat;
 use App\Entity\Allergy;
 use App\Entity\Category;
 use App\Entity\Formulas;
@@ -57,7 +56,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Allergy', 'fas fa-biohazard', Allergy::class);
         yield MenuItem::linkToCrud('Category', 'fab fa-red-river', Category::class);
-        yield MenuItem::linkToCrud('SubCat', 'fas fa-cookie', SubCat::class);
         yield MenuItem::linkToCrud('Dish', 'fas fa-utensils', Dish::class);
         yield MenuItem::linkToCrud('Formulas', 'fas fa-cookie-bite', Formulas::class);
         yield MenuItem::linkToCrud('Menu', 'fab fa-galactic-republic', Menu::class);
