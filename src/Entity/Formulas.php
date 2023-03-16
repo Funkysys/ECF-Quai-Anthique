@@ -30,15 +30,10 @@ class Formulas
     #[ORM\Column(length: 255)]
     #[Groups(['formulas:list', 'formulas:item', 'menu:list', 'menu:item'])]
     private ?string $title = null;
-
-    #[ORM\ManyToMany(targetEntity: Menu::class, mappedBy: 'formulas')]
+    
+    #[ORM\Column]
     #[Groups(['formulas:list', 'formulas:item'])]
-    private Collection $menus;
-
-    public function __construct()
-    {
-        $this->menus = new ArrayCollection();
-    }
+    private ?int $price = null;
 
     public function __toString()
     {
@@ -62,29 +57,14 @@ class Formulas
         return $this;
     }
 
-    /**
-     * @return Collection<int, Menu>
-     */
-    public function getMenus(): Collection
+    public function getPrice(): ?int
     {
-        return $this->menus;
+        return $this->price;
     }
 
-    public function addMenu(Menu $menu): self
+    public function setPrice(int $price): self
     {
-        if (!$this->menus->contains($menu)) {
-            $this->menus->add($menu);
-            $menu->addFormula($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMenu(Menu $menu): self
-    {
-        if ($this->menus->removeElement($menu)) {
-            $menu->removeFormula($this);
-        }
+        $this->price = $price;
 
         return $this;
     }

@@ -58,7 +58,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Category', 'fab fa-red-river', Category::class);
         yield MenuItem::linkToCrud('Dish', 'fas fa-utensils', Dish::class);
         yield MenuItem::linkToCrud('Formulas', 'fas fa-cookie-bite', Formulas::class);
-        yield MenuItem::linkToCrud('Menu', 'fab fa-galactic-republic', Menu::class);
         yield MenuItem::linkToCrud('OpeningHours', 'fas fa-hourglass-empty', OpeningHours::class);
         yield MenuItem::linkToCrud('Images', 'fas fa-images', Images::class);
         yield MenuItem::linkToCrud('Reservation', 'fas fa-images', Reservation::class);
