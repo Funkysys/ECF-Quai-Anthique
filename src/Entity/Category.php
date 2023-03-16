@@ -24,6 +24,7 @@ class Category
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['category:list', 'category:item', 'dish:list', 'dish:item'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
