@@ -19,7 +19,6 @@ class AllergyCrudController extends AbstractCrudController
     {
         return [
             TextField::new('name'),
-            AssociationField::new('users')->onlyOnIndex(),
         ];
     }
     

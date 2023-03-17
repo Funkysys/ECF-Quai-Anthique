@@ -50,10 +50,7 @@ final class Version20230303160533 extends AbstractMigration
         $this->addSql('ALTER TABLE `table` ADD CONSTRAINT FK_F6298F46A76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE user_allergy ADD CONSTRAINT FK_93BC5CBFA76ED395 FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE user_allergy ADD CONSTRAINT FK_93BC5CBFDBFD579D FOREIGN KEY (allergy_id) REFERENCES allergy (id) ON DELETE CASCADE');
-        $allergns = array('Gluten', 'Arachide', 'Lait', 'Oeufs', 'Fruits à coque', 'Mollusques', 'Fruits de mer', 'Moutarde', 'Poisson', 'Céleri', 'Soja', 'Sulfites', 'Sésame', 'Lupin');
-        foreach ($allergns as $allergn) {
-            $this->addSql('INSERT INTO allergy (name) VALUES (?)', array($allergn));
-        }
+
     }
 
     public function down(Schema $schema): void
