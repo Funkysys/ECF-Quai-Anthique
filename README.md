@@ -16,8 +16,15 @@ configure your .env Database_URL
 
 symfony console d:d:c
 
+yarn install or npm install
+
+yarn run build
+
 symfony serve
 
 ````
 
 Now visit http://localhost:8000
+
+````
+create an account with adminquaiantique@quaiant.fr for login as admin
