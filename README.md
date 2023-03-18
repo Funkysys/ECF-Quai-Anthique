@@ -6,9 +6,9 @@ Ceci est la partie Backend du projet
 
 ### initialisation du projet en Local
 ````
-git clone 
+git clone git@github.com:Funkysys/ECF-Quai-Antique.git
 ||
-git clone
+git clone https://github.com/Funkysys/ECF-Quai-Antique.git
 
 composer install
 
