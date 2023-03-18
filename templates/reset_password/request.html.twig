@@ -4,21 +4,21 @@
 {% endblock %}
 
 {% block body %}
-	<div class='container'>
+	<div class='container mt-5'>
 		{% for flash_error in app.flashes('reset_password_error') %}
 			<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
 		{% endfor %}
-		<h1>Nouveau mot de passe</h1>
+		<h1 class='fs-2 mt-3'>Nouveau mot de passe</h1>
 
 		{{ form_start(requestForm) }}
 		{{ form_row(requestForm.email) }}
 		<div>
-			<small>
+			<small class='mt-2'>
 				Entrez votre email et nous vous enverrons un lien pour le refaire
 			</small>
 		</div>
 
-		<button class="btn btn-primary">envoyer l'email pour le nouveau mot de passe</button>
+		<button class="btn btn-primary mt-3">envoyer l'email pour le nouveau mot de passe</button>
 		{{ form_end(requestForm) }}
 	</div>
 {% endblock %}

@@ -1,13 +1,13 @@
 <div class='container'>
-	<h1 class='fs-3'>Salut !</h1>
+	<h1 class='fs-3 mt-5'>Salut !</h1>
 
-	<p class='fs=5'>Pour renouveller le mot de passe, veuillez suivre le lien</p>
+	<p class='fs-5 mt-5'>Pour renouveller le mot de passe, veuillez suivre le lien</p>
 
 	<a href="{{ url('app_reset_password', {token: resetToken.token}) }}">{{ url('app_reset_password', {token: resetToken.token}) }}</a>
 
-	<p class='fs=5'>Le lien expire dans
+	<p class='fs-5'>Le lien expire dans
 		{{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.</p>
 
-	<p class='fs=4'>Cheers!</p>
+	<p class='fs-4 mt-5 '>Cheers!</p>
 
 </div>
