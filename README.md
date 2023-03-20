@@ -2,7 +2,8 @@
 
 ## Description
 Création d'un site vitrine pour un restaurant fictif avec possibilité de reservervation de table pour un client, gestion de données par un administrateur etc...
-Ceci est la partie Backend du projet
+Ceci est la partie Backend du projet.
+Le projet est créé en Symfony 6.2 et PHP 8.2.
 
 ### initialisation du projet en Local
 ````
