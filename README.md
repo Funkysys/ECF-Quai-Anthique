@@ -1,4 +1,4 @@
-# ECF-Quai-Anthique
+# ECF-Quai-Antique
 
 ## Description
 Création d'un site vitrine pour un restaurant fictif avec possibilité de reservervation de table pour un client, gestion de données par un administrateur etc...
