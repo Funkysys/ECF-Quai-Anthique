@@ -15,7 +15,9 @@ composer install
 
 configure your .env Database_URL 
 
-symfony console d:d:c
+php bin/console d:d:c
+
+php bin/console d:m:m
 
 yarn install or npm install
 
