@@ -31,7 +31,7 @@ Now visit http://localhost:8000
 
 ````
 Créez un compte avec l'adresse adminquaiantique@quaiant.fr pour vous connecter comme Admin
-
+````
 ## Pour télécharger le projet front :
 ````
 Rendez-vous sur https://github.com/Funkysys/quai-antique-front
