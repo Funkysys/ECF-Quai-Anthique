@@ -30,4 +30,4 @@ symfony serve
 Now visit http://localhost:8000
 
 ````
-create an account with adminquaiantique@quaiant.fr for login as admin
+Créez un compte avec l'adresse adminquaiantique@quaiant.fr pour vous connecter comme Admin
