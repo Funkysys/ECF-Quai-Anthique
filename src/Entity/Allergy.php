@@ -33,11 +33,9 @@ class Allergy
     private ?string $name = null;
 
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'allergies', cascade: ['persist'])]
-    #[Groups(['allergy:list', 'allergy:item'])]
     private Collection $users;
 
     #[ORM\ManyToMany(targetEntity: Dish::class, mappedBy: 'allergies')]
-    #[Groups(['allergy:list', 'allergy:item'])]
     private Collection $dishes;
 
     public function __construct()
