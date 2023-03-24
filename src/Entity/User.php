@@ -67,10 +67,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['user:list', 'user:item', 'user:create', 'user:update'])]
     private Collection $reservations;
 
-    #[ORM\Column(type: Types::ARRAY, nullable: true)]
-    #[Groups(['user:list', 'user:item', 'user:create', 'user:update'])]
-    private array $allergy = [];
-
     #[ORM\ManyToMany(targetEntity: Allergy::class, inversedBy: 'users', cascade: ['persist'])]
     #[Groups(['user:list', 'user:item', 'user:create', 'user:update'])]
     private Collection $allergies;
@@ -211,18 +207,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $reservation->setUser(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getAllergy(): array
-    {
-        return $this->allergy;
-    }
-
-    public function setAllergy(?array $allergy): self
-    {
-        $this->allergy = $allergy;
 
         return $this;
     }

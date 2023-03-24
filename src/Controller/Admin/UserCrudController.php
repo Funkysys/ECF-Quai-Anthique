@@ -23,7 +23,6 @@ class UserCrudController extends AbstractCrudController
         return [
             TextField::new('name'),
             EmailField::new('email'),
-            ArrayField::new('allergy'),
             AssociationField::new('allergies'),
             BooleanField::new('isadmin'),
         ];
