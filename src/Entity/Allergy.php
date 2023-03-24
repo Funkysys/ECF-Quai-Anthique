@@ -25,11 +25,11 @@ class Allergy
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['allergy:list', 'allergy:item', 'user:list', 'user:item', 'dish:list', 'dish:item'])]
+    #[Groups(['allergy:list', 'allergy:item', 'user:list', 'user:item', 'dish:list', 'dish:item', 'category:list', 'category:item'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['allergy:list', 'allergy:item', 'user:list', 'user:item', 'dish:list', 'dish:item'])]
+    #[Groups(['allergy:list', 'allergy:item', 'user:list', 'user:item', 'dish:list', 'dish:item', 'category:list', 'category:item'])]
     private ?string $name = null;
 
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'allergies', cascade: ['persist'])]
