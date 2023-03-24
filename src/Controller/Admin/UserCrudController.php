@@ -26,7 +26,6 @@ class UserCrudController extends AbstractCrudController
             ArrayField::new('allergy'),
             AssociationField::new('allergies'),
             BooleanField::new('isadmin'),
-            ArrayField::new('roles')
         ];
     }
     
