@@ -46,8 +46,9 @@ class Dish
     #[ORM\JoinColumn(nullable: true)]
     #[Groups(['category:list', 'category:item', 'dish:list', 'dish:item'])]
     private ?Category $category = null;
-
+    
     #[ORM\ManyToMany(targetEntity: Allergy::class, inversedBy: 'dishes')]
+    #[Groups(['category:list', 'category:item', 'dish:list', 'dish:item'])]
     private Collection $allergies;
 
     public function __construct()
