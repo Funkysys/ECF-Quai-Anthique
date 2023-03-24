@@ -71,11 +71,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['user:list', 'user:item', 'user:create', 'user:update'])]
     private array $allergy = [];
 
+    #[ORM\ManyToMany(targetEntity: Allergy::class, inversedBy: 'users', cascade: ['persist'])]
+    #[Groups(['user:list', 'user:item', 'user:create', 'user:update'])]
+    private Collection $allergies;
+
+    #[ORM\Column]
+    private ?bool $is_admin = null;
+
 
 
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
+        $this->allergies = new ArrayCollection();
     }
 
     public function __toString()
@@ -123,6 +131,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setRoles(array $roles): self
     {
+        
         $this->roles = $roles;
 
         return $this;
@@ -215,6 +224,46 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->allergy = $allergy;
 
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Allergy>
+     */
+    public function getAllergies(): Collection
+    {
+        return $this->allergies;
+    }
+
+    public function addAllergy(Allergy $allergy): self
+    {
+        if (!$this->allergies->contains($allergy)) {
+            $this->allergies->add($allergy);
+        }
+
+        return $this;
+    }
+
+    public function removeAllergy(Allergy $allergy): self
+    {
+        $this->allergies->removeElement($allergy);
+
+        return $this;
+    }
+
+    public function getIsAdmin(): ?bool
+    {
+        return $this->is_admin;
+    }
+
+    public function setIsAdmin(bool $is_admin): self
+    {
+        if ($this->getIsAdmin()) {
+            $this->setRoles([]);
+        } else if (!$this->getIsAdmin()) {
+            $this->setRoles(['ROLE_ADMIN']);
+        }
+        $this->is_admin = $is_admin;
         return $this;
     }
 }

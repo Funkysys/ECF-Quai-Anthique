@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\DishRepository;
@@ -44,6 +46,14 @@ class Dish
     #[ORM\JoinColumn(nullable: true)]
     #[Groups(['category:list', 'category:item', 'dish:list', 'dish:item'])]
     private ?Category $category = null;
+
+    #[ORM\ManyToMany(targetEntity: Allergy::class, inversedBy: 'dishes')]
+    private Collection $allergies;
+
+    public function __construct()
+    {
+        $this->allergies = new ArrayCollection();
+    }
 
     public function __toString()
     {
@@ -99,6 +109,30 @@ class Dish
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Allergy>
+     */
+    public function getAllergies(): Collection
+    {
+        return $this->allergies;
+    }
+
+    public function addAllergy(Allergy $allergy): self
+    {
+        if (!$this->allergies->contains($allergy)) {
+            $this->allergies->add($allergy);
+        }
+
+        return $this;
+    }
+
+    public function removeAllergy(Allergy $allergy): self
+    {
+        $this->allergies->removeElement($allergy);
 
         return $this;
     }

@@ -3,7 +3,10 @@
 namespace App\EventSubscriber;
 
 use App\Entity\Images;
+use App\Entity\User;
+use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeCrudActionEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
+use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityUpdatedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EasyAdminSubscriber implements EventSubscriberInterface
@@ -12,7 +15,8 @@ class EasyAdminSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-          BeforeEntityPersistedEvent::class => ['setImagesDate']
+          BeforeEntityPersistedEvent::class => ['setImagesDate'],
+          BeforeEntityPersistedEvent::class => ['is_admin']
         ];
     }
     
@@ -24,5 +28,17 @@ class EasyAdminSubscriber implements EventSubscriberInterface
             return;
         }
             return $entity->setCreatedAt(new \DateTimeImmutable());
+    }
+    public function setAdminRole(BeforeEntityPersistedEvent $event)
+    {
+        $entity = $event->getEntityInstance();
+
+        if (!($entity instanceof User)) {
+            return;
+        }
+        if ($entity->getIsAdmin()) {
+            $entity->setRoles(['ROLE_ADMIN']);
+        }
+        return $entity->setRoles([]);
     }
 }
