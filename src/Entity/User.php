@@ -65,7 +65,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Reservation::class)]
     #[ORM\JoinColumn(nullable: true)]
-    #[Groups(['user:list', 'user:item', 'user:create', 'user:update'])]
+    #[Groups(['user:list', 'user:item'])]
     private Collection $reservations;
 
     #[ORM\ManyToMany(targetEntity: Allergy::class, inversedBy: 'users', cascade: ['persist'])]
