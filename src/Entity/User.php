@@ -74,7 +74,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $allergies;
 
     #[ORM\Column]
-    private ?bool $is_admin = null;
+    private ?bool $is_admin = false;
 
 
 

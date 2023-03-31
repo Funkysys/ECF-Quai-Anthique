@@ -3,10 +3,7 @@
 namespace App\EventSubscriber;
 
 use App\Entity\Images;
-use App\Entity\User;
-use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeCrudActionEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
-use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityUpdatedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EasyAdminSubscriber implements EventSubscriberInterface
@@ -16,7 +13,6 @@ class EasyAdminSubscriber implements EventSubscriberInterface
     {
         return [
           BeforeEntityPersistedEvent::class => ['setImagesDate'],
-          BeforeEntityPersistedEvent::class => ['is_admin']
         ];
     }
     
