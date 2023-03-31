@@ -67,8 +67,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(nullable: true)]
     #[Groups(['user:list', 'user:item'])]
     private Collection $reservations;
-
+    
     #[ORM\ManyToMany(targetEntity: Allergy::class, inversedBy: 'users', cascade: ['persist'])]
+    #[ORM\JoinColumn(nullable: true)]
     #[Groups(['user:list', 'user:item', 'user:create', 'user:update'])]
     private Collection $allergies;
 
