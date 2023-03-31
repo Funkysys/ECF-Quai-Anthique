@@ -29,16 +29,4 @@ class EasyAdminSubscriber implements EventSubscriberInterface
         }
             return $entity->setCreatedAt(new \DateTimeImmutable());
     }
-    public function setAdminRole(BeforeEntityPersistedEvent $event)
-    {
-        $entity = $event->getEntityInstance();
-
-        if (!($entity instanceof User)) {
-            return;
-        }
-        if ($entity->getIsAdmin()) {
-            $entity->setRoles(['ROLE_ADMIN']);
-        }
-        return $entity->setRoles([]);
-    }
 }

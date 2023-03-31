@@ -51,6 +51,35 @@ final class Version20230303160533 extends AbstractMigration
         $this->addSql('ALTER TABLE user_allergy ADD CONSTRAINT FK_93BC5CBFA76ED395 FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE user_allergy ADD CONSTRAINT FK_93BC5CBFDBFD579D FOREIGN KEY (allergy_id) REFERENCES allergy (id) ON DELETE CASCADE');
 
+        $allergns = array('Gluten', 'Arachide', 'Lait', 'Oeufs', 'Fruits à coque', 'Mollusques', 'Fruits de mer', 'Moutarde', 'Poisson', 'Céleri', 'Soja', 'Sulfites', 'Sésame', 'Lupin');
+        foreach ($allergns as $allergn) {
+            $this->addSql('INSERT INTO allergy (name) VALUES (?)', array($allergn));
+        }
+
+        $days = array('Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche');
+        foreach ($days as $day) {
+            $this->addSql('INSERT INTO days (day) VALUES (?)', array($day));
+        }
+
+        $hours = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24);
+        foreach ($hours as $hour) {
+            $this->addSql('INSERT INTO hours (hour) VALUES (?)', array($hour));
+        }
+
+        $minutes = array(0, 15, 30, 45);
+
+        foreach ($minutes as $minute) {
+            $this->addSql('INSERT INTO minutes (minutes) VALUES (?)', array($minute));
+        }
+
+        $categories = array('Entrées', 'Plats', 'Désserts', 'Boissons');
+
+        foreach ($categories as $category) {
+            $this->addSql('INSERT INTO category (title) VALUES (?)', array($category));
+        }
+
+        $this->addSql('INSERT INTO restaurant (capacity) VALUES 50');
+
     }
 
     public function down(Schema $schema): void
