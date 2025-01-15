@@ -35,11 +35,12 @@ class Images
     #[Groups(['images:list', 'images:item'])]
     private ?string $title = null;
 
+
     #[Vich\UploadableField(mapping: 'gallery_images', fileNameProperty: 'imageName', size: 'imageSize')]
     #[Assert\File(
-        maxSize: "5M",
-        mimeTypes: ["image/jpeg", "image/png", "image/gif"],
-        mimeTypesMessage: "Please upload a valid image (JPEG, PNG, GIF)."
+        maxSize: '5M',
+        mimeTypes: ['image/jpeg', 'image/png', 'image/jpg'],
+        mimeTypesMessage: 'Seuls les fichiers JPEG, PNG ou JPG sont autorisés.'
     )]
     private ?File $imageFile = null;
 

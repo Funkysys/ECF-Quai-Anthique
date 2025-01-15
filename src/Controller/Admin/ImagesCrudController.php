@@ -23,6 +23,15 @@ class ImagesCrudController extends AbstractCrudController
             TextField::new('imageAlt', 'Texte alternatif')->setHelp('Texte alternatif pour l\'accessibilité.'),
             Field::new('imageFile', 'Fichier image')
                 ->setFormType(VichImageType::class)
+                ->setFormTypeOptions([
+                    'constraints' => [
+                        new \Symfony\Component\Validator\Constraints\File([
+                            'maxSize' => '5M',
+                            'mimeTypes' => ['image/jpeg', 'image/png', 'image/jpg'],
+                            'mimeTypesMessage' => 'Votre fichier doit être au format JPEG, PNG ou JPG, et sa taille ne doit pas dépasser 5 Mo.',
+                        ]),
+                    ],
+                ])
                 ->setHelp('Seuls les fichiers JPEG, PNG et JPG de moins de 5 Mo sont autorisés.')
                 ->onlyWhenCreating(),
             ImageField::new('imageName', 'Aperçu')
