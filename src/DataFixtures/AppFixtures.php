@@ -2,18 +2,18 @@
 
 namespace App\DataFixtures;
 
-use Faker\Factory;
-use App\Entity\Days;
-use App\Entity\Dish;
-use App\Entity\User;
 use App\Entity\Allergy;
 use App\Entity\Category;
+use App\Entity\Days;
+use App\Entity\Dish;
 use App\Entity\Formulas;
 use App\Entity\Hours;
 use App\Entity\Minutes;
 use App\Entity\OpeningHours;
-use Doctrine\Persistence\ObjectManager;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Persistence\ObjectManager;
+use Faker\Factory;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 /**
@@ -89,14 +89,14 @@ class AppFixtures extends Fixture
 
         $hours = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24);
         foreach ($hours as $hour) {
-            $h= new Hours();
+            $h = new Hours();
             $h->setHour($hour);
             $manager->persist($h);
         }
 
         $minutes = array(0, 15, 30, 45);
         foreach ($minutes as $minute) {
-            $m= new Minutes();
+            $m = new Minutes();
             $m->setMinutes($minute);
             $manager->persist($m);
         }

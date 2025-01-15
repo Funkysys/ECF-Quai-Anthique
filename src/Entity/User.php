@@ -9,7 +9,6 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\UserRepository;
 use App\State\UserPasswordHasher;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;

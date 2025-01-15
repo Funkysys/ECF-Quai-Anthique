@@ -2,23 +2,24 @@
 
 namespace App\Entity;
 
-use App\Repository\ImagesRepository;
-use Doctrine\ORM\Mapping as ORM;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use App\Repository\ImagesRepository;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ImagesRepository::class)]
 #[Vich\Uploadable]
-#[ApiResource(
-    operations: [
-        new Get(normalizationContext: ['groups' => 'images:item']),
-        new GetCollection(normalizationContext: ['groups' => 'images:list'])   
-    ],
-    paginationItemsPerPage: 6
+#[
+    ApiResource(
+        operations: [
+            new Get(normalizationContext: ['groups' => 'images:item']),
+            new GetCollection(normalizationContext: ['groups' => 'images:list'])
+        ],
+        paginationItemsPerPage: 6
     )
 ]
 class Images
@@ -29,25 +30,39 @@ class Images
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     #[Groups(['images:list', 'images:item'])]
     private ?string $title = null;
 
     #[Vich\UploadableField(mapping: 'gallery_images', fileNameProperty: 'imageName', size: 'imageSize')]
-    private ?File $imageFile;
+    #[Assert\File(
+        maxSize: "5M",
+        mimeTypes: ["image/jpeg", "image/png", "image/gif"],
+        mimeTypesMessage: "Please upload a valid image (JPEG, PNG, GIF)."
+    )]
+    private ?File $imageFile = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     #[Groups(['images:list', 'images:item'])]
     private ?string $imageName = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     #[Groups(['images:list', 'images:item'])]
     private ?string $imageSize = null;
 
     #[ORM\Column]
+    #[Assert\NotNull]
     #[Groups(['images:list', 'images:item'])]
     private ?\DateTimeImmutable $created_at = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     #[Groups(['images:list', 'images:item'])]
     private ?string $imageAlt = null;
 
